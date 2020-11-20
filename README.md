@@ -232,7 +232,7 @@ The member functions of the `CustomerOrder` class include:
 - move assignment operator. This operator should "promise" that it doesn't throw exceptions. Use the `noexcept` keyword in the prototype.
 - a destructor
 - `bool isOrderFilled() const` – returns `true` if all the items in the order have been filled; `false` otherwise
-- `bool isItemFilled(const std::string& itemName) const` – returns the `ItemInfo::m_fillState` of the item specified as a parameter. If the item doesn't exist in the order, return `true`.
+- `bool isItemFilled(const std::string& itemName) const` – returns the `Item::m_isFilled` of the item specified as a parameter. If the item doesn't exist in the order, return `true`.
 - `void fillItem(Station& station, std::ostream& os)` – fills the item in the current order that corresponds to the `station` passed into the function.
   - if the order doesn't contain the item handled at the station, this function does nothing
   - if the order contains items handled at the station, and the inventory contains at least one element, then this function subtracts 1 from the inventory and updates `Item::m_serialNumber` and `Item::m_isFilled`. Also it prints the message `    Filled NAME, PRODUCT [ITEM_NAME]`.
