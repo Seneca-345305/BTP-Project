@@ -107,26 +107,26 @@ Each `Station` holds the following information:
 ***Public Functions***
 
 -  custom constructor
-  - upon instantiation, an `Station` object receives a reference to an unmodifiable `std::string`.  This string contains a single record (one line) that has been retrieved from the input file specified by the user.
-  - the constructor uses an `Utilities` object (created local in the function) to extract each token from the record and populates the `Station` object accordingly.
-  - **Note:**  You can assume that a record from the file contains 4 fields separated by a delimiter, in the following order:
-    - name of the item
-    - starting serial number
-    - quantity in stock
-    - description
-  - the delimiter of the tokens is a single character, specified by the client and stored into the `Utilities` object.
-  - once the constructor has extracted *name*, *starting serial number*, and *quantity* from the record, it updates `Station::m_widthField` to the maximum value of `Station::m_widthField` and `Utilities::m_widthField`.
-  - **Note:**  the `display(...)` member function uses this field width to align the output across all of the records retrieved from the file.
+    - upon instantiation, an `Station` object receives a reference to an unmodifiable `std::string`.  This string contains a single record (one line) that has been retrieved from the input file specified by the user.
+    - the constructor uses an `Utilities` object (created local in the function) to extract each token from the record and populates the `Station` object accordingly.
+    - **Note:**  You can assume that a record from the file contains 4 fields separated by a delimiter, in the following order:
+        - name of the item
+        - starting serial number
+        - quantity in stock
+        - description
+    - the delimiter of the tokens is a single character, specified by the client and stored into the `Utilities` object.
+    - once the constructor has extracted *name*, *starting serial number*, and *quantity* from the record, it updates `Station::m_widthField` to the maximum value of `Station::m_widthField` and `Utilities::m_widthField`.
+    - **Note:**  the `display(...)` member function uses this field width to align the output across all of the records retrieved from the file.
 
 -  `const std::string& getItemName() const` - returns the name of the current `Station` object
 -  `unsigned int getNextSerialNumber()` – returns the next serial number to be used on the assembly line and increments `m_serialNumber`
 -  `unsigned int getQuantity() const` – returns the remaining quantity of the current `Station` object
 -  `void updateQuantity()` – subtracts 1 from the available quantity; should not go below 0.
 -  `void display(std::ostream& os, bool full) const` -- inserts the content of the current object into first parameter.
-  - if the second parameter is `false`, this function inserts only the ID, name and serial number in the format: `[ID] Item: NAME [SERIAL]`
-  - if the second parameter if `true`, this function uses the following format: `[ID] Item NAME [SERIAL] Quantity: QTY Description: DESCRIPTION`
-  - `ID` field will use 3 characters, the `NAME` and `QTY` fields will use `m_widthField` characters, serial number field will use 6 characters; the `DESCRIPTION` has no formatting options
-  - this function will terminate the printed message with an endline
+    - if the second parameter is `false`, this function inserts only the ID, name and serial number in the format: `[ID] Item: NAME [SERIAL]`
+    - if the second parameter if `true`, this function uses the following format: `[ID] Item NAME [SERIAL] Quantity: QTY Description: DESCRIPTION`
+    - `ID` field will use 3 characters, the `NAME` and `QTY` fields will use `m_widthField` characters, serial number field will use 6 characters; the `DESCRIPTION` has no formatting options
+    - this function will terminate the printed message with an endline
 
 
 ## Tester Module
@@ -223,10 +223,10 @@ A `CustomerOrder` object manages a single order on the assembly line and contain
 The member functions of the `CustomerOrder` class include:
 - default constructor
 - a custom constructor that takes as a parameter a reference to a string containing a single record from the input file.  This constructor uses an `Utilities` object to extract the tokens and populate the current instance. After the extraction is finished, will update `CustomerOrder::m_widthField` if the value stored there is smaller than the value stored in `Utilities::m_widthField`.
-  - fields in the record are (separated by a delimiter):
-    - Customer Name
-    - Order Name
-    - the list of items making up the order (at least one item)
+    - fields in the record are (separated by a delimiter):
+        - Customer Name
+        - Order Name
+        - the list of items making up the order (at least one item)
 - a `CustomerOrder` object should not allow copy operations.  The copy constructor should throw an exception if called and the copy `operator=` should be deleted.
 - move constructor. This constructor should "promise" that it doesn't throw exceptions. Use the `noexcept` keyword in the prototype.
 - move assignment operator. This operator should "promise" that it doesn't throw exceptions. Use the `noexcept` keyword in the prototype.
@@ -234,21 +234,21 @@ The member functions of the `CustomerOrder` class include:
 - `bool isOrderFilled() const` – returns `true` if all the items in the order have been filled; `false` otherwise
 - `bool isItemFilled(const std::string& itemName) const` – returns the `Item::m_isFilled` of the item specified as a parameter. If the item doesn't exist in the order, return `true`.
 - `void fillItem(Station& station, std::ostream& os)` – fills the item in the current order that corresponds to the `station` passed into the function.
-  - if the order doesn't contain the item handled at the station, this function does nothing
-  - if the order contains items handled at the station, and the inventory contains at least one element, then this function subtracts 1 from the inventory and updates `Item::m_serialNumber` and `Item::m_isFilled`. Also it prints the message `    Filled NAME, PRODUCT [ITEM_NAME]`.
-  - if the order contains items handled at the station, and the inventory is empty, then this function prints the message `    Unable to fill NAME, PRODUCT [ITEM_NAME]`.
-  - all messages printed should be terminated by an endline
+    - if the order doesn't contain the item handled at the station, this function does nothing
+    - if the order contains items handled at the station, and the inventory contains at least one element, then this function subtracts 1 from the inventory and updates `Item::m_serialNumber` and `Item::m_isFilled`. Also it prints the message `    Filled NAME, PRODUCT [ITEM_NAME]`.
+    - if the order contains items handled at the station, and the inventory is empty, then this function prints the message `    Unable to fill NAME, PRODUCT [ITEM_NAME]`.
+    - all messages printed should be terminated by an endline
 - `void display(std::ostream& os) const` – displays the state of the current object in the format (see the sample output for details)
-  ```
-  CUSTOMER_NAME - PRODUCT
-  [SERIAL] ITEM_NAME - STATUS
-  [SERIAL] ITEM_NAME - STATUS
-  ...
-  ```
-  - `SERIAL` - a field of width 6
-  - `ITEM_NAME` - a field of size `m_widthField`
-  - `STATUS` is either `FILLED` or `MISSING`
-  - you will have to use IO manipulators for the output.
+    ```
+    CUSTOMER_NAME - PRODUCT
+    [SERIAL] ITEM_NAME - STATUS
+    [SERIAL] ITEM_NAME - STATUS
+    ...
+    ```
+    - `SERIAL` - a field of width 6
+    - `ITEM_NAME` - a field of size `m_widthField`
+    - `STATUS` is either `FILLED` or `MISSING`
+    - you will have to use IO manipulators for the output.
 
 Also, add to the header `CustomerOrder.h`, the following structure:
 
@@ -358,12 +358,12 @@ A `Workstation` object manages a single `Item` on the assembly line.
 The member functions of the `Workstation` class include:
 
 - a custom constructor -- upon instantiation, a `Workstation` object receives a reference to an unmodifiable `std::string`.  This string contains a single record (one line) that has been retrieved from the input file specified by the user to be used for `Station` instantiation.
-  - this constructor will also set the `m_pNextStation` to a safe state. 
+    - this constructor will also set the `m_pNextStation` to a safe state. 
 
 - A `Workstation` object represents a single location on the assembly line for filling items into customer orders.  Therefore, a `Workstation` object cannot be copied or moved.   You must make sure this capability has been deleted from your `Workstation` definition.
 
 - `void runProcess(std::ostream&)` – runs a single cycle of the assembly line for the current station.
-  - If there are `CustomerOrders` in the queue, this function fills the order in the front at the current `Workstation`.
+    - If there are `CustomerOrders` in the queue, this function fills the order in the front at the current `Workstation`.
 
 - `bool moveOrder()` – if the order at the front of the queue doesn't require service at the current station, move it to the next station on the assembly line and return `true`.  Otherwise, do nothing and return `false`.   If the queue is empty, return `false`.
 
@@ -374,8 +374,8 @@ The member functions of the `Workstation` class include:
 - `bool getIfCompleted(CustomerOrder& order)` – if the order at the front of the queue is completed, this function removes from the queue, places it in the parameter and returns `true`; otherwise returns `false`.  If the `CustomerOrder` queue is empty, returns `false`.
 
 - `void display(std::ostream&)` – writes the name of the `Item` this `Workstation` is responsible for into the parameter: `ITEM_NAME --> NEXT_ITEM_NAME`
-  - if `m_pNextWorkstation` does not exist it writes: `ITEM_NAME --> END OF LINE`.
-  - the messages are terminated with an endline
+    - if `m_pNextWorkstation` does not exist it writes: `ITEM_NAME --> END OF LINE`.
+    - the messages are terminated with an endline
 
 - `Workstation& operator+=(CustomerOrder&&)` – moves the parameter onto the back of the `CustomerOrder` queue.
 
@@ -393,22 +393,22 @@ A `LineManager` object manages the entire assembly line and contains the followi
 
 The member functions of the `LineManager` class include:
 - custom constructor
-  - with the following arguments:
-    - a reference to an unmodifiable `std::string`.  This string contains the filename specified by the user to be used for linking the assembly line objects (example:  `AssemblyLine.txt`)
-    - a reference to a `std::vector<Workstation*>` that contains the addresses of all the `Workstation` objects created for the assembly line
-    - a reference to a `std::vector<CustomerOrder>` that contains all the `CustomerOrder` objects to be filled
-  - the constructor will:
-    - read the records from file and setup all the `m_pNextStation` references in the `Workstation` objects, linking each `Workstation` object together to form the assembly line
-    - Move all the `CustomerOrder` objects onto the back of the `ToBeFilled` queue
-    - Copy all the `Workstation` objects into the `AssemblyLine` container
+    - with the following arguments:
+        - a reference to an unmodifiable `std::string`.  This string contains the filename specified by the user to be used for linking the assembly line objects (example:  `AssemblyLine.txt`)
+        - a reference to a `std::vector<Workstation*>` that contains the addresses of all the `Workstation` objects created for the assembly line
+        - a reference to a `std::vector<CustomerOrder>` that contains all the `CustomerOrder` objects to be filled
+    - the constructor will:
+        - read the records from file and setup all the `m_pNextStation` references in the `Workstation` objects, linking each `Workstation` object together to form the assembly line
+        - Move all the `CustomerOrder` objects onto the back of the `ToBeFilled` queue
+        - Copy all the `Workstation` objects into the `AssemblyLine` container
 
 - `bool run(std::ostream& os)` –  this function performs **one** cycle of operations on the assembly line by doing the following:
-  - Insert into `os` the iteration number (how many times this function has been called by the client; use only local variables to count) in the format `Line Manager Iteration: COUNT<endl>`
-  - If there are any `CustomerOrder` objects in the `ToBeFilled` queue, move the one at the front of the queue onto the starting point of the `AssemblyLine` (you have to identify which station is the starting point of your assembly line). Only one order can be moved on the assembly line on each call to this function.
-  - Loop through all stations on the assembly line and run one cycle of the station's process
-  - Loop through all stations on the assembly line and move the `CustomerOrder` objects down the line.
-    - **Hint:**  completed orders should be moved into the `Completed` queue.
-  - return `true` if all customer orders have been filled, otherwise returns `false`.
+    - Insert into `os` the iteration number (how many times this function has been called by the client; use only local variables to count) in the format `Line Manager Iteration: COUNT<endl>`
+    - If there are any `CustomerOrder` objects in the `ToBeFilled` queue, move the one at the front of the queue onto the starting point of the `AssemblyLine` (you have to identify which station is the starting point of your assembly line). Only one order can be moved on the assembly line on each call to this function.
+    - Loop through all stations on the assembly line and run one cycle of the station's process
+    - Loop through all stations on the assembly line and move the `CustomerOrder` objects down the line.
+        - **Hint:**  completed orders should be moved into the `Completed` queue.
+    - return `true` if all customer orders have been filled, otherwise returns `false`.
 - `void displayCompletedOrders(std::ostream& os) const` -- displays all the orders that were completed
 - `void displayStations() const` -- display all stations on the assembly line in the order they were received from the client
 - `void displayStationsSorted() const` -- display all stations on the assembly line in the order they are linked.
